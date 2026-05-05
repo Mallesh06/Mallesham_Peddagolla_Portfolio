@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mallesh Peddagolla | AI Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --gold:      #4f46e5;
+      --gold-dim:  #3730a3;
+      --gold-light:#eef2ff;
+      --dark:      #0a0a0a;
+      --dark2:     #111111;
+      --dark3:     #1a1a1a;
+      --card-bg:   #161616;
+      --text:      #1a1a2e;
+      --text-dim:  #6366f1;
+      --border:    rgba(79,70,229,0.2);
+      --glow:      rgba(79,70,229,0.15);
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      background:var(--dark);
+      color:var(--text);
+      font-family:'Poppins', sans-serif;
+      overflow-x:hidden;
+      font-size:15px;
+      line-height:1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position:fixed; top:0; width:100%; z-index:100;
+      background:rgba(10,10,10,0.95);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border);
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 5%;
+    }
+    .logo {
+      font-family:'Playfair Display', serif;
+      color:var(--gold); font-size:1.4rem; letter-spacing:1px;
+    }
+    .logo span { color:#fff; }
+    .nav-links { display:flex; gap:24px; list-style:none; }
+    .nav-links a {
+      color:gray; text-decoration:none;
+      font-size:.85rem; font-weight:600; letter-spacing:.3px;
+      transition:color .2s;
+    }
+    .nav-links a:hover { color:var(--gold); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height:100vh;
+      background:#111111;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      text-align:center; padding:100px 20px 60px;
+      position:relative; overflow:hidden;
+    }
+    .hero::before { content:none; }
+
+    .particles { display:none; }
+
+    .hero-icon {
+      font-size:5rem; margin-bottom:20px;
+      animation:float 4s ease-in-out infinite; display:block;
+      filter:drop-shadow(0 0 20px rgba(240,192,64,0.4));
+    }
+    @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-12px);} }
+
+    .hero h1 {
+      font-family:'Playfair Display', serif;
+      font-size:clamp(2.4rem,7vw,4.8rem);
+      color:#fff; line-height:1.15;
+      text-shadow:0 4px 30px rgba(0,0,0,0.7);
+    }
+    .hero h1 span { color:grey; }
+    .hero-role {
+      margin-top:14px; font-size:1rem;
+      color:grey; font-style:italic; letter-spacing:.5px;
+    }
+    .hero-loc {
+      margin-top:10px; font-size:.9rem;
+      color:var(--gold-dim); font-weight:600;
+      display:flex; align-items:center; gap:6px; justify-content:center;
+    }
+    .hero-btns {
+      display:flex; gap:14px; margin-top:36px;
+      flex-wrap:wrap; justify-content:center;
+    }
+    .btn {
+      padding:13px 30px; border-radius:50px; font-weight:700;
+      font-size:.92rem; cursor:pointer; border:none; text-decoration:none;
+      font-family:'Poppins', sans-serif;
+      transition:transform .2s, box-shadow .2s;
+      display:inline-flex; align-items:center; gap:8px;
+    }
+    .btn:hover { transform:translateY(-3px); box-shadow:0 8px 28px rgba(0,0,0,0.5); }
+    .btn-gold    { background:#4f46e5; color:#fff; }
+    .btn-gold:hover { box-shadow:0 8px 28px rgba(79,70,229,0.4); }
+    .btn-github  { background:#1c1c1c; color:#fff; border:1px solid rgba(255,255,255,0.15); }
+    .btn-linkedin { background:#0a66c2; color:#fff; }
+    .btn-linkedin:hover { box-shadow:0 8px 28px rgba(10,102,194,0.4); }
+    .btn-outline { background:transparent; color:#818cf8; border:2px solid #818cf8; }
+
+    /* ── SECTION BASE ── */
+    .sec-title {
+      font-family:'Playfair Display', serif;
+      font-size:clamp(1.8rem,4vw,2.5rem);
+      text-align:center; margin-bottom:10px;
+    }
+    .sec-sub { text-align:center; margin-bottom:48px; font-size:.95rem; }
+    .divider { width:60px; height:3px; background:#4f46e5; border-radius:2px; margin:12px auto 36px; }
+
+    /* ── ABOUT ── */
+    #about { background:#f9f6ef; padding:80px 5%; }
+    #about .sec-title { color:#1a1a1a; }
+    #about .sec-sub   { color:#666; }
+    .about-inner {
+      max-width:900px; margin:0 auto;
+      display:flex; gap:48px; align-items:center; flex-wrap:wrap;
+    }
+    .about-text { flex:1; min-width:260px; }
+    .about-text p { line-height:1.9; color:#444; font-size:.97rem; margin-bottom:14px; }
+    .about-text p strong { color:#4f46e5; }
+    .about-badges { display:flex; gap:10px; flex-wrap:wrap; margin-top:18px; }
+    .badge {
+      background:#eef2ff;
+      border:1.5px solid #a5b4fc;
+      border-radius:20px; padding:6px 16px;
+      font-size:.82rem; font-weight:600; color:#4338ca;
+    }
+    .about-img {
+      flex:1; min-width:220px;
+      background:linear-gradient(135deg,#1e1b4b,#4f46e5);
+      border:1px solid #a5b4fc;
+      border-radius:20px; height:260px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:6rem;
+      box-shadow:0 12px 40px rgba(79,70,229,0.2);
+    }
+
+    /* ── SKILLS ── */
+    #skills { background:#ffffff; padding:80px 5%; }
+    #skills .sec-title { color:#1a1a1a; }
+    #skills .sec-sub   { color:#666; }
+    .skills-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+      gap:22px; max-width:1100px; margin:0 auto;
+    }
+    .skill-card {
+      background:#f9f9f9;
+      border:1px solid #e0e7ff;
+      border-top:3px solid #4f46e5;
+      border-radius:14px; padding:26px 20px; text-align:center;
+      transition:transform .25s, box-shadow .25s;
+    }
+    .skill-card:hover { transform:translateY(-6px); box-shadow:0 12px 36px rgba(79,70,229,0.12); }
+    .skill-card .emoji { font-size:2.5rem; display:block; margin-bottom:12px; }
+    .skill-card h3 { font-size:1rem; font-weight:700; color:#1a1a1a; margin-bottom:12px; }
+    .skill-tags { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; }
+    .skill-tag {
+      background:#eef2ff;
+      border:1px solid #a5b4fc;
+      border-radius:20px; padding:3px 12px;
+      font-size:.75rem; font-weight:600; color:#4338ca;
+    }
+
+    /* ── PROJECTS ── */
+    #projects { background:#f9f6ef; padding:80px 5%; }
+    #projects .sec-title { color:#1a1a1a; }
+    #projects .sec-sub   { color:#666; }
+    .projects-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+      gap:22px; max-width:1100px; margin:0 auto;
+    }
+    .project-card {
+      background:#ffffff;
+      border:1px solid #e0e7ff;
+      border-top:3px solid #4f46e5;
+      border-radius:14px; padding:26px 22px;
+      transition:transform .25s, box-shadow .25s;
+    }
+    .project-card:hover { transform:translateY(-6px); box-shadow:0 12px 36px rgba(79,70,229,0.12); }
+    .project-card .emoji { font-size:2.5rem; display:block; margin-bottom:12px; }
+    .project-card h3 { font-size:1rem; font-weight:700; color:#1a1a1a; margin-bottom:8px; }
+    .project-card p { font-size:.87rem; color:#555; margin-bottom:16px; line-height:1.75; }
+    .stack-tags { display:flex; flex-wrap:wrap; gap:6px; }
+    .stack-tag {
+      background:#f3f4f6;
+      border:1px solid #ddd;
+      border-radius:20px; padding:3px 12px;
+      font-size:.75rem; font-weight:600; color:#444;
+    }
+
+    /* ── EXPERIENCE ── */
+    #experience { background:#ffffff; padding:80px 5%; }
+    #experience .sec-title { color:#1a1a1a; }
+    #experience .sec-sub   { color:#666; }
+    .exp-grid {
+      display:flex; gap:24px; justify-content:center;
+      flex-wrap:wrap; max-width:900px; margin:0 auto;
+    }
+    .exp-card {
+      background:#f9f9f9;
+      border:1px solid #e0e7ff;
+      border-radius:14px; padding:28px 30px;
+      flex:1; min-width:240px;
+      transition:transform .25s, box-shadow .25s;
+    }
+    .exp-card:hover { transform:translateY(-5px); box-shadow:0 12px 32px rgba(79,70,229,0.1); }
+    .exp-card .icon { font-size:2rem; margin-bottom:10px; display:block; }
+    .exp-card .date { color:#6366f1; font-size:.78rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; }
+    .exp-card .role { color:#1a1a1a; font-size:1rem; font-weight:700; margin-bottom:4px; }
+    .exp-card .company { color:#4f46e5; font-size:.85rem; font-weight:600; margin-bottom:12px; }
+    .exp-card p { color:#555; font-size:.87rem; line-height:1.75; }
+
+    /* ── CERTIFICATIONS ── */
+    #certifications { background:#f9f6ef; padding:80px 5%; }
+    #certifications .sec-title { color:#1a1a1a; }
+    #certifications .sec-sub   { color:#666; }
+    .certs-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+      gap:20px; max-width:1100px; margin:0 auto;
+    }
+    .cert-card {
+      background:#ffffff;
+      border:1px solid #e0e7ff;
+      border-top:3px solid #4f46e5;
+      border-radius:14px; padding:22px 20px;
+      transition:transform .25s, box-shadow .25s;
+    }
+    .cert-card:hover { transform:translateY(-5px); box-shadow:0 10px 30px rgba(79,70,229,0.1); }
+    .cert-card .emoji { font-size:2.2rem; display:block; margin-bottom:12px; }
+    .cert-card h3 { font-size:.92rem; font-weight:700; color:#1a1a1a; margin-bottom:6px; line-height:1.5; }
+    .cert-card .issuer { font-size:.78rem; color:#888; margin-bottom:12px; font-weight:600; }
+    .cert-link { font-size:.8rem; color:#4f46e5; text-decoration:none; font-weight:700; }
+    .cert-link:hover { text-decoration:underline; }
+    .cert-note { text-align:center; margin-top:22px; font-size:.82rem; color:#888; }
+
+    /* ── EDUCATION ── */
+    #education { background:#ffffff; padding:80px 5%; }
+    #education .sec-title { color:#1a1a1a; }
+    #education .sec-sub   { color:#666; }
+    .edu-grid {
+      display:flex; gap:24px; justify-content:center;
+      flex-wrap:wrap; max-width:800px; margin:0 auto;
+    }
+    .edu-card {
+      background:#f9f9f9;
+      border:1px solid #e0e7ff;
+      border-top:3px solid #4f46e5;
+      border-radius:14px; padding:32px 28px;
+      flex:1; min-width:240px; text-align:center;
+      transition:transform .25s, box-shadow .25s;
+    }
+    .edu-card:hover { transform:translateY(-5px); box-shadow:0 10px 30px rgba(79,70,229,0.1); }
+    .edu-card .emoji { font-size:2.8rem; display:block; margin-bottom:14px; }
+    .edu-card h3 { font-size:1rem; font-weight:700; color:#1a1a1a; margin-bottom:8px; }
+    .edu-card .school { font-size:.87rem; color:#666; font-weight:500; margin-bottom:14px; }
+    .edu-card .year {
+      display:inline-block; background:#4f46e5; color:#fff;
+      border-radius:20px; padding:4px 18px; font-weight:800; font-size:.85rem;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background:#f9f6ef; padding:80px 5%; text-align:center; }
+    #contact .sec-title { color:#1a1a1a; }
+    #contact .sec-sub   { color:#666; }
+    .contact-grid {
+      display:flex; gap:24px; justify-content:center;
+      flex-wrap:wrap; max-width:820px; margin:0 auto 40px;
+    }
+    .contact-card {
+      background:#ffffff;
+      border:1px solid #e0e7ff;
+      border-radius:14px; padding:28px 20px;
+      min-width:180px; flex:1;
+      transition:transform .25s, box-shadow .25s;
+      overflow:hidden;
+    }
+    .contact-card:hover { transform:translateY(-5px); box-shadow:0 10px 30px rgba(79,70,229,0.1); }
+    .contact-card .icon { font-size:2rem; margin-bottom:10px; display:block; }
+    .contact-card h4 { color:#4f46e5; font-size:.78rem; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:8px; }
+    .contact-card p  { color:#1a1a1a; font-size:.9rem; font-weight:600; word-break:break-all; }
+    .contact-card a  { color:#4338ca; text-decoration:none; font-size:.85rem; word-break:break-all; }
+    .contact-card a:hover { text-decoration:underline; }
+    .linkedin-btn {
+      display:inline-flex; align-items:center; gap:10px;
+      background:#4f46e5; color:#fff;
+      padding:15px 40px; border-radius:50px; font-size:1rem;
+      font-weight:800; text-decoration:none; font-family:'Poppins',sans-serif;
+      box-shadow:0 6px 24px rgba(79,70,229,0.3);
+      transition:transform .2s, box-shadow .2s;
+    }
+    .linkedin-btn:hover { transform:translateY(-3px); box-shadow:0 10px 32px rgba(79,70,229,0.5); }
+
+    /* ── FOOTER ── */
+    footer {
+      background:#1a1a1a;
+      border-top:1px solid #333;
+      color:#888;
+      text-align:center;
+      padding:22px;
+      font-size:.82rem;
+    }
+    footer span { color:#818cf8; }
+
+    /* ── FLOATING BUTTON ── */
+    .float-li {
+      position:fixed; bottom:28px; right:24px; z-index:200;
+      background:#4f46e5; color:#fff; border-radius:50%;
+      width:56px; height:56px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.4rem; font-weight:800;
+      box-shadow:0 6px 24px rgba(79,70,229,0.4);
+      text-decoration:none; animation:pulse 2.5s infinite;
+    }
+    @keyframes pulse {
+      0%,100%{ box-shadow:0 0 0 0 rgba(79,70,229,0.4); }
+      50%    { box-shadow:0 0 0 14px rgba(79,70,229,0); }
+    }
+
+    @media(max-width:600px){
+      .nav-links { display:none; }
+      .about-inner, .exp-grid, .edu-grid, .contact-grid { flex-direction:column; }
+      .hero h1 { font-size:2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">✦<span> Mallesham Peddagolla</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+  <h1>Building the Future with <span>Artificial Intelligence</span></h1>
+  <p class="hero-role">Aspiring AI Engineer · Generative AI Enthusiast · Cloud & LLM Explorer</p>
+  <p class="hero-loc">📍 Hyderabad, Telangana, India</p>
+  <div class="hero-btns">
+    <a href="#projects" class="btn btn-gold">🚀 View My Work</a>
+    <a href="https://github.com/Mallesh06" target="_blank" class="btn btn-github">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/mallesh-peddagolla06/" target="_blank" class="btn btn-linkedin">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn
+    </a>
+    <a href="#contact" class="btn btn-outline">📬 Contact Me</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <h2 class="sec-title">About Me</h2>
+  <div class="divider"></div>
+  <div class="about-inner">
+    <div class="about-text">
+      <p>Welcome! I'm <strong>Mallesh Peddagolla</strong>, a B.Tech Computer Science Engineering student (2023–2027) at St. Mary's Group of Institutions, Hyderabad — passionate about <strong>Artificial Intelligence</strong> and <strong>Cloud Computing</strong>.</p>
+      <p>I completed two AICTE virtual internships — one in <strong>AI & Cloud Technology</strong> with Edunet Foundation & IBM, and another in <strong>Conversational Data Analytics with LLMs</strong> with Vodafone Idea Foundation. I love building practical AI tools that solve real problems.</p>
+      <p>I'm actively seeking <strong>internships and entry-level roles</strong> in AI, ML, and cloud engineering where I can grow and contribute.</p>
+      <div class="about-badges">
+        <span class="badge">🧠 Generative AI</span>
+        <span class="badge">☁️ Cloud Computing</span>
+        <span class="badge">🐍 Python</span>
+        <span class="badge">🤗 Hugging Face</span>
+        <span class="badge">🎓 AICTE Certified</span>
+      </div>
+    </div>
+    <div class="about-img">🧑‍💻</div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <h2 class="sec-title">My Skills</h2>
+  <p class="sec-sub">Technologies & tools I work with</p>
+  <div class="divider"></div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <span class="emoji">🐍</span>
+      <h3>AI / Machine Learning</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">TensorFlow</span>
+        <span class="skill-tag">Keras</span>
+        <span class="skill-tag">Scikit-learn</span>
+        <span class="skill-tag">NLTK</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <span class="emoji">🤖</span>
+      <h3>Generative AI & LLMs</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">LLMs</span>
+        <span class="skill-tag">Hugging Face</span>
+        <span class="skill-tag">Whisper</span>
+        <span class="skill-tag">Prompt Engineering</span>
+        <span class="skill-tag">Chatbots</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <span class="emoji">☁️</span>
+      <h3>Cloud & Data</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">IBM Cloud</span>
+        <span class="skill-tag">AI Workflows</span>
+        <span class="skill-tag">Data Analytics</span>
+        <span class="skill-tag">Data Visualization</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <span class="emoji">🛠️</span>
+      <h3>Dev Tools & Web</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Streamlit</span>
+        <span class="skill-tag">Git & GitHub</span>
+        <span class="skill-tag">HTML/CSS/JS</span>
+        <span class="skill-tag">VS Code</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <h2 class="sec-title">My Projects</h2>
+  <p class="sec-sub">Practical AI solutions built with passion</p>
+  <div class="divider"></div>
+  <div class="projects-grid">
+    <div class="project-card">
+      <span class="emoji">🎙️</span>
+      <h3>Lecture Voice-to-Notes App</h3>
+      <p>Converts lecture audio into transcripts, summaries, flashcards, and quizzes — helping students study more efficiently from recorded lectures.</p>
+      <div class="stack-tags">
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">Streamlit</span>
+        <span class="stack-tag">Whisper</span>
+        <span class="stack-tag">Hugging Face</span>
+        <span class="stack-tag">NLTK</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <span class="emoji">💬</span>
+      <h3>Conversational Data Analysis</h3>
+      <p>Built LLM-powered workflows to analyze conversational data and extract actionable insights from unstructured dialogue — AICTE-VOIS Internship.</p>
+      <div class="stack-tags">
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">LLMs</span>
+        <span class="stack-tag">NLP</span>
+        <span class="stack-tag">Data Analytics</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <span class="emoji">☁️</span>
+      <h3>AI & Cloud Integration</h3>
+      <p>Implemented AI model workflows integrated with IBM Cloud — covering deployment, cloud fundamentals, and integration techniques.</p>
+      <div class="stack-tags">
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">IBM Cloud</span>
+        <span class="stack-tag">AI Workflows</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <span class="emoji">🛒</span>
+      <h3>E-Commerce Website</h3>
+      <p>A full-stack e-commerce web application with product listings, cart functionality, and responsive UI — built to explore end-to-end web development.</p>
+      <div class="stack-tags">
+        <span class="stack-tag">HTML</span>
+        <span class="stack-tag">CSS</span>
+        <span class="stack-tag">JavaScript</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <h2 class="sec-title">Work Experience</h2>
+  <p class="sec-sub">Hands-on learning through real-world internships</p>
+  <div class="divider"></div>
+  <div class="exp-grid">
+    <div class="exp-card">
+      <span class="icon">🏢</span>
+      <div class="date">Sep – Oct 2025</div>
+      <div class="role">AI & Cloud Technology Intern</div>
+      <div class="company">Edunet Foundation × IBM SkillsBuild · AICTE</div>
+      <p>Completed a 4-week internship working with AI model workflows and cloud computing. Engaged with IBM Skills Build modules and gained hands-on experience with Python and cloud platforms.</p>
+      <a href="https://drive.google.com/file/d/13kcFuTsHq46VBOalS9gAg_Wfo-vPtM7Q/view?usp=drive_link" target="_blank" class="cert-link" style="margin-top:12px;display:inline-block;">View Certificate →</a>
+    </div>
+    <div class="exp-card">
+      <span class="icon">📡</span>
+      <div class="date">Sep – Oct 2025</div>
+      <div class="role">Conversational Data Analysis Intern</div>
+      <div class="company">Vodafone Idea Foundation × Edunet · AICTE</div>
+      <p>Virtual internship on Conversational Data Analysis with LLMs. Gained experience in how Large Language Models process and analyze conversational data.</p>
+      <a href="https://drive.google.com/file/d/1nnmVhdqeetRqiIFIMuNjHQkocn8TPGFa/view?usp=drive_link" target="_blank" class="cert-link" style="margin-top:12px;display:inline-block;">View Certificate →</a>
+    </div>
+    <div class="exp-card">
+      <span class="icon">🛢️</span>
+      <div class="date">2025</div>
+      <div class="role">AI Intern</div>
+      <div class="company">Shell × AICTE Internship Program</div>
+      <p>Completed the Shell AICTE virtual internship focused on AI applications in the energy sector, gaining exposure to industry-level AI problem solving and real-world use cases.</p>
+      <a href="https://drive.google.com/file/d/1xXScNm3t6nxm7xpKdKcoZ5sZu_w4_0kH/view?usp=drive_link" target="_blank" class="cert-link" style="margin-top:12px;display:inline-block;">View Certificate →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <h2 class="sec-title">Certifications</h2>
+  <p class="sec-sub">Verified skills & completed programs</p>
+  <div class="divider"></div>
+  <div class="certs-grid">
+    <div class="cert-card">
+      <span class="emoji">🤖</span>
+      <h3>Aritficial Intelligence & Machine Learning</h3>
+      <div class="issuer">Microsoft Elevate</div>
+      <a href="https://drive.google.com/file/d/1-B8gtoV8C1S06dX-hMs_zKNgp7_679cg/view?usp=drive_link" target="_blank" class="cert-link">View Credential →</a>
+    </div>
+    <div class="cert-card">
+      <span class="emoji">☁️</span>
+      <h3>Cloud Administration & Engineering</h3>
+      <div class="issuer">Microsoft Elevate</div>
+      <a href="https://drive.google.com/file/d/10ZqDNOy6dlRouRvlD3sxAQDU321CUaeF/view?usp=drive_link" target="_blank" class="cert-link">View Credential →</a>
+    </div>
+    <div class="cert-card">
+      <span class="emoji">📊</span>
+      <h3>Power BI for Business Applications</h3>
+      <div class="issuer">Microsoft Elevate</div>
+      <a href="https://drive.google.com/file/d/1uOHu4BDPxmdaIGm3IlV1u44DnRaO5NUJ/view?usp=drive_link" target="_blank" class="cert-link">View Credential →</a>
+    </div>
+    <div class="cert-card">
+      <span class="emoji">🧠</span>
+      <h3>Artificial Intelligence Fundamentals</h3>
+      <div class="issuer">IBM SkillsBuild</div>
+      <a href="https://drive.google.com/file/d/10GIpHAtEMLToM7sG8obG_vdngnJ0qQXw/view?usp=drive_link" target="_blank" class="cert-link">View Credential →</a>
+    </div>
+    <div class="cert-card">
+      <span class="emoji">🏅</span>
+      <h3>AICTE IBM Internship Completion</h3>
+      <div class="issuer">Edunet Foundation × IBM · AICTE</div>
+      <a href="https://drive.google.com/file/d/13kcFuTsHq46VBOalS9gAg_Wfo-vPtM7Q/view?usp=drive_link" target="_blank" class="cert-link">View Credential →</a>
+    </div>
+    <div class="cert-card">
+      <span class="emoji">🏅</span>
+      <h3>AICTE VOIS Internship Completion</h3>
+      <div class="issuer">Vodafone Idea Foundation · AICTE</div>
+      <a href="https://drive.google.com/file/d/1nnmVhdqeetRqiIFIMuNjHQkocn8TPGFa/view?usp=drive_link" target="_blank" class="cert-link">View Credential →</a>
+    </div>
+    <div class="cert-card">
+      <span class="emoji">📈</span>
+      <h3>Data Visualization</h3>
+      <div class="issuer">VOIS / Edunet</div>
+      <a href="https://drive.google.com/file/d/1UjBeiqObQ-ZKzrBybVeRGcLnYdsMrvL4/view?usp=drive_link" target="_blank" class="cert-link">View Credential →</a>
+    </div>
+    <div class="cert-card">
+      <span class="emoji">🐍</span>
+      <h3>Python Basics</h3>
+      <div class="issuer">VOIS / Edunet</div>
+      <a href="https://drive.google.com/file/d/1anJ2h4WGsfVFih24rtpCXPSB0IhGE4xd/view?usp=drive_link" target="_blank" class="cert-link">View Credential →</a>
+    </div>
+    <div class="cert-card">
+      <span class="emoji">🎓</span>
+      <h3>IBM SkillsBuild Completion</h3>
+      <div class="issuer">IBM SkillsBuild</div>
+      <a href="https://drive.google.com/file/d/11byc4mQ1aiX1BrGkBdYiw5xdY7-t8aOG/view?usp=drive_link" target="_blank" class="cert-link">View Credential →</a>
+    </div>
+    <div class="cert-card">
+      <span class="emoji">⚡</span>
+      <h3>OCI Generative AI</h3>
+      <div class="issuer">Oracle Cloud Infrastructure</div>
+      <a href="https://drive.google.com/file/d/1B5OpLtDHakftuQ7cCmzdAkJnwiIiSRsv/view?usp=drive_link" target="_blank" class="cert-link">View Credential →</a>
+    </div>
+    <div class="cert-card">
+      <span class="emoji">💬</span>
+      <h3>Introduction to LLM</h3>
+      <div class="issuer">Online Certification</div>
+      <a href="https://drive.google.com/file/d/1xs4JfL4GAP3DMgkVYs1_V5XiC-bajuo1/view?usp=drive_link" target="_blank" class="cert-link">View Credential →</a>
+    </div>
+    <div class="cert-card">
+      <span class="emoji">☁️</span>
+      <h3>AWS Completion Certificate</h3>
+      <div class="issuer">Amazon Web Services</div>
+      <a href="https://drive.google.com/file/d/1Xk3MWChZeZsEEKkLewpBhZe555tAcLw6/view?usp=drive_link" target="_blank" class="cert-link">View Credential →</a>
+    </div>
+    <div class="cert-card">
+      <span class="emoji">🔍</span>
+      <h3>Deloitte Virtual Experience</h3>
+      <div class="issuer">Deloitte</div>
+      <a href="https://drive.google.com/file/d/1YzKf47Pti7fPGYoZhNoGmKV_LvpJbH7T/view?usp=drive_link" target="_blank" class="cert-link">View Credential →</a>
+    </div>
+    <div class="cert-card">
+      <span class="emoji">📋</span>
+      <h3>TATA Virtual Experience</h3>
+      <div class="issuer">Tata Group</div>
+      <a href="https://drive.google.com/file/d/1T2Y68vY2dUWrZGBoaRgkqZJ1yVkfFKKe/view?usp=drive_link" target="_blank" class="cert-link">View Credential →</a>
+    </div>
+    <div class="cert-card">
+      <span class="emoji">🛢️</span>
+      <h3>Shell AICTE Internship</h3>
+      <div class="issuer">Shell × AICTE</div>
+      <a href="https://drive.google.com/file/d/1xXScNm3t6nxm7xpKdKcoZ5sZu_w4_0kH/view?usp=drive_link" target="_blank" class="cert-link">View Credential →</a>
+    </div>
+    <div class="cert-card">
+      <span class="emoji">📗</span>
+      <h3>Excel Certification</h3>
+      <div class="issuer">Infosys Springboard</div>
+      <a href="https://drive.google.com/file/d/1m_qMjjEi9DcBJkytHMw1wlVwgf_mkmUR/view?usp=drive_link" target="_blank" class="cert-link">View Credential →</a>
+    </div>
+    <div class="cert-card">
+      <span class="emoji">🚀</span>
+      <h3>LetsUpgrade Certification</h3>
+      <div class="issuer">LetsUpgrade</div>
+      <a href="https://drive.google.com/file/d/1PZ505GOB0tFaBbbkbUPVKQQc0sFXmg5I/view?usp=drive_link" target="_blank" class="cert-link">View Credential →</a>
+    </div>
+    <div class="cert-card">
+      <span class="emoji">🎖️</span>
+      <h3>Participation Certificate</h3>
+      <div class="issuer">Event / Program</div>
+      <a href="https://drive.google.com/file/d/1xdcQnGaXlIQ1A0yhi9NeMoFUqDQfH91n/view?usp=drive_link" target="_blank" class="cert-link">View Credential →</a>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <h2 class="sec-title">Education</h2>
+  <p class="sec-sub">My academic journey</p>
+  <div class="divider"></div>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <span class="emoji">🎓</span>
+      <h3>B.Tech — Computer Science & Engineering</h3>
+      <div class="school">St. Mary's Group of Institutions, Hyderabad (JNTUH)</div>
+      <span class="year">2023 – 2027</span>
+    </div>
+    <div class="edu-card">
+      <span class="emoji">📚</span>
+      <h3>Intermediate — MPC</h3>
+      <div class="school">MJPTBCWRJC, Yalal</div>
+      <span class="year">2021 – 2023</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2 class="sec-title">Get In Touch</h2>
+  <p class="sec-sub">Open to internships, collaborations & entry-level AI roles</p>
+  <div class="divider"></div>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <span class="icon">📧</span>
+      <h4>Email</h4>
+      <p><a href="mailto:malleshpeddagolla06@gmail.com">malleshpeddagolla06@gmail.com</a></p>
+    </div>
+    <div class="contact-card">
+      <span class="icon">📍</span>
+      <h4>Location</h4>
+      <p>Hyderabad, Telangana, India</p>
+    </div>
+    <div class="contact-card">
+      <span class="icon">🐙</span>
+      <h4>GitHub</h4>
+      <p><a href="https://github.com/Mallesh06" target="_blank">github.com/Mallesh06</a></p>
+    </div>
+    <div class="contact-card">
+      <span class="icon">📞</span>
+      <h4>Phone Number</h4>
+      <p>+91 9059801316</p>
+    </div>
+  </div>
+  <a href="https://www.linkedin.com/in/mallesh-peddagolla06/" target="_blank" class="linkedin-btn">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    Connect on LinkedIn
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <span>Mallesham Peddagolla</span> · AI Enthusiast · Hyderabad, India </p>
+</footer>
+
+<!-- FLOATING LINKEDIN -->
+<a class="float-li" href="https://www.linkedin.com/in/mallesh-peddagolla06/" target="_blank" title="LinkedIn">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+</a>
+
+</body>
+</html>
